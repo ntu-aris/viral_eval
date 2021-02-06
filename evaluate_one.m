@@ -1,6 +1,5 @@
 function P_est_ate = evaluate_one(test_id, test_fullname)
 
-% clearvars('-except', vars_to_keep{:});
 close all;
 
 fighd = [];
