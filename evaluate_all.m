@@ -12,8 +12,6 @@ tests_count = length(tests);
 
 ATE_POSE    = cell(tests_count, 2);
 
-t_shift     = 0.0;
-
 fprintf('Number of tests: %d\n', length(tests));
 
 % delete(gcp)
