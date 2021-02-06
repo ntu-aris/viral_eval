@@ -7,7 +7,7 @@ path        = matlab.desktop.editor.getActiveFilename;
 this_dir    = path(1: end - length(mfilename) - 2);
 cd(this_dir);
 
-tests       = dir([this_dir 'result_eee*']);
+tests       = dir([this_dir 'result_*']);
 tests_count = length(tests);
 
 ATE_POSE    = cell(tests_count, 2);
