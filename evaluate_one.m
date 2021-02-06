@@ -8,12 +8,9 @@ fighd = [];
 exp_name =  test_fullname.name;
 exp_path = [test_fullname.folder '/' test_fullname.name '/'];
 
-
 gndtr_pos_fn     = [exp_path 'leica_pose.csv'];
 pose_est_fn      = [exp_path 'predict_odom.csv'];
 trans_B2prism_fn = [exp_path '../trans_B2prism.csv'];
-
-%% Read the data from log and start processing
 
 
 %% Read the gndtr data from logs
@@ -58,24 +55,24 @@ P_est = P_est + quatrotate(Q_est, trans_B2prism);
 % Note affix rs[x] is for resampled by [x]
 
 % Find the interpolated time stamps
-[rsh_pos_itp_idx(:, 1), rsh_pos_itp_idx(:, 2)] = combteeth(t_est, t, 0.1);
+[rsest_pos_itp_idx(:, 1), rsest_pos_itp_idx(:, 2)] = combteeth(t_est, t, 0.1);
 
 % Remove the un-associatable samples
-rsh_nan_idx = find(isnan(rsh_pos_itp_idx(:, 1)) | isnan(rsh_pos_itp_idx(:, 2)));
+rsest_nan_idx = find(isnan(rsest_pos_itp_idx(:, 1)) | isnan(rsest_pos_itp_idx(:, 2)));
 
 t_est_full = t_est;
 P_est_full = P_est;
 Q_est_full = Q_est;
 V_est_full = V_est;
 
-rsh_pos_itp_idx(rsh_nan_idx, :) = [];
-t_est(rsh_nan_idx, :)     = [];
-P_est(rsh_nan_idx, :)     = [];
-Q_est(rsh_nan_idx, :)     = [];
-V_est(rsh_nan_idx, :)     = [];
+rsest_pos_itp_idx(rsest_nan_idx, :) = [];
+t_est(rsest_nan_idx, :)     = [];
+P_est(rsest_nan_idx, :)     = [];
+Q_est(rsest_nan_idx, :)     = [];
+V_est(rsest_nan_idx, :)     = [];
 
 % interpolate the pos gndtr state
-P_rsest = vecitp(P, t, t_est, rsh_pos_itp_idx);
+P_rsest = vecitp(P, t, t_est, rsest_pos_itp_idx);
 
 % find the optimal alignment
 [rot_align_est, trans_align_est] = traj_align(P_rsest, P_est);
