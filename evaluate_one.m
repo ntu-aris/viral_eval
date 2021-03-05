@@ -47,7 +47,7 @@ V_est =  pose_est_data(:, 11:13);
 trans_B2prism = csvread(trans_B2prism_fn, 0, 0);
 
 % Compensate the position estimate with the prism displacement
-P_est = P_est + quatrotate(Q_est, trans_B2prism);
+P_est = P_est + quatconv(Q_est, trans_B2prism);
 
 
 %% Resample the ground truth data by estimate data sample times
